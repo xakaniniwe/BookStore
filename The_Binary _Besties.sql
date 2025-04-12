@@ -24,7 +24,7 @@ CREATE TABLE book_language (
     language_name VARCHAR(100) NOT NULL            -- Name of the language (It cannot be blank)
 );
 
--- insert data into the book_Language table
+-- insert sample data into the book_Language table
 INSERT INTO book_language (language_id, language_name) VALUES
 (1, 'English'),
 (2, 'isiZulu'),
@@ -44,7 +44,7 @@ CREATE TABLE book (
     FOREIGN KEY (language_id) REFERENCES book_language(language_id) -- Foreign key to language
 );
 
--- Insert data into the 'book' table:
+-- Insert sample data into the 'book' table:
 INSERT INTO book (title, publisher_id, language_id, price, publication_date) VALUES
 ('Things Fall Apart', 1, 1, 350.00, '1958-06-17'),
 ('Half of a Yellow Sun', 1, 1, 420.50, '2006-09-28'),
@@ -92,7 +92,8 @@ CREATE TABLE book_author (
 );
 
 -- Insert data into the 'book_author' table based on the 'book' table's author_id:
-INSERT INTO book_author (book_id, author_id) VALUES
+INSERT INTO book_author (book_id, author_id) 
+VALUES
 (1, 1),   -- Things Fall Apart - Chinua Achebe
 (2, 2),   -- Half of a Yellow Sun - Chimamanda N
 (3, 3),   -- Weep Not, Child - Ngugi wa Thion
@@ -170,8 +171,9 @@ CREATE TABLE address (
     FOREIGN KEY (country_id) REFERENCES country(country_id)  -- Foreign key to country
 );
 
--- Insert data into the 'address' table
-INSERT INTO address (address_line1, address_line2, province, city, post_code, country_id) VALUES
+-- Insert sample data into the 'address' table
+INSERT INTO address (address_line1, address_line2, province, city, post_code, country_id) 
+VALUES
 ('123 Main Street', NULL, 'Gauteng', 'Johannesburg', '2000', 1),
 ('456 Suburb Road, Apt 10', NULL, 'Western Cape', 'Cape Town', '8000', 1),
 ('789 Lagos Avenue', NULL, 'Lagos State', 'Lagos', '100001', 9),
@@ -205,8 +207,9 @@ CREATE TABLE customer_address (
     FOREIGN KEY (address_id) REFERENCES address(address_id)     -- Foreign key to address
 );
 
--- Insert data into the 'customer_address' table
-INSERT INTO customer_address (address_id, customer_id, address_status) VALUES
+-- Insert sample data into the 'customer_address' table
+INSERT INTO customer_address (address_id, customer_id, address_status) 
+VALUES
 (1, 1, 'Current'),
 (2, 1, 'Old'),
 (3, 2, 'Current'),
@@ -230,7 +233,6 @@ INSERT INTO customer_address (address_id, customer_id, address_status) VALUES
 (21, 20, 'Current'),
 (22, 1, 'Old'); -- Another address for customer 1
 
-
 -- Create the 'cust_order' table:
 CREATE TABLE cust_order (
     order_id INT AUTO_INCREMENT PRIMARY KEY,    -- Unique order ID
@@ -243,6 +245,30 @@ CREATE TABLE cust_order (
     FOREIGN KEY (customer_id) REFERENCES customer(customer_id) -- Foreign key to customer
 );
 
+-- Insert sample data into the 'cust_order' table for the customers
+INSERT INTO cust_order (customer_id, order_date, shipping_method, order_status, total_amount, payment_status)
+VALUES
+    (1, '2025-04-01', 'Standard', 'pending', 199.99, 'pending'),   
+    (2, '2025-04-02', 'Express', 'shipped', 299.99, 'paid'),      
+    (3, '2025-04-03', 'Standard', 'delivered', 150.50, 'paid'),   
+    (4, '2025-04-04', 'Express', 'pending', 450.00, 'pending'),   
+    (5, '2025-04-05', 'Standard', 'shipped', 120.75, 'paid'),    
+    (6, '2025-04-06', 'Express', 'pending', 299.99, 'pending'),   
+    (7, '2025-04-07', 'Standard', 'delivered', 399.50, 'paid'), 
+    (8, '2025-04-08', 'Express', 'shipped', 249.99, 'paid'),    
+    (9, '2025-04-09', 'Standard', 'pending', 200.00, 'pending'),  
+    (10, '2025-04-10', 'Express', 'delivered', 180.99, 'paid'),  
+    (11, '2025-04-11', 'Standard', 'shipped', 159.50, 'paid'),   
+    (12, '2025-04-12', 'Express', 'pending', 320.00, 'pending'), 
+    (13, '2025-04-13', 'Standard', 'delivered', 225.75, 'paid'), 
+    (14, '2025-04-14', 'Express', 'shipped', 400.50, 'paid'), 
+    (15, '2025-04-15', 'Standard', 'pending', 190.00, 'pending'), 
+    (16, '2025-04-16', 'Express', 'shipped', 380.00, 'paid'), 
+    (17, '2025-04-17', 'Standard', 'delivered', 205.50, 'paid'),
+    (18, '2025-04-18', 'Express', 'pending', 290.00, 'pending'),
+    (19, '2025-04-19', 'Standard', 'shipped', 300.00, 'paid'), 
+    (20, '2025-04-20', 'Express', 'delivered', 250.75, 'paid');
+
 -- Create the 'order_line' table:
 CREATE TABLE order_line (
     order_line_id INT AUTO_INCREMENT PRIMARY KEY, -- Unique ID for each order line
@@ -253,39 +279,11 @@ CREATE TABLE order_line (
     FOREIGN KEY (book_id) REFERENCES book(book_id)          -- Foreign key to book
 );
 
--- Insert data into the 'order_line' table
-INSERT INTO order_line (order_id, book_id, quantity) VALUES
-(1, 3, 1),
-(1, 7, 2),
-(2, 12, 1),
-(3, 5, 1),
-(4, 9, 1),
-(5, 1, 2),
-(6, 15, 1),
-(7, 18, 1),
-(8, 2, 1),
-(9, 11, 1),
-(10, 4, 2),
-(11, 16, 1),
-(12, 8, 1),
-(13, 20, 1),
-(14, 6, 1),
-(15, 14, 1),
-(16, 19, 1),
-(17, 10, 1),
-(18, 17, 1),
-(19, 13, 2),
-(20, 1, 1),
-(21, 2, 1),
-(22, 3, 1),
-(23, 4, 1),
-(24, 5, 1),
-(25, 6, 1),
-(26, 7, 1),
-(27, 8, 1),
-(28, 9, 1),
-(29, 10, 1),
-(30, 11, 1);
+-- Insert sample data into the 'order_line' table
+INSERT INTO order_line (order_id, book_id, quantity) 
+VALUES
+    (1, 3, 1), (1, 7, 2), (2, 12, 1), (3, 5, 1), (4, 9, 1), (5, 1, 2), (6, 15, 1), (7, 18, 1), (8, 2, 1), (9, 11, 1), (10, 4, 2), (11, 16, 1), 
+    (12, 8, 1), (13, 20, 1), (14, 6, 1), (15, 14, 1), (16, 19, 1), (17, 10, 1), (18, 17, 1), (19, 13, 2), (20, 1, 1);
 
 -- Create the 'order_history' table:
 CREATE TABLE order_history (
@@ -296,8 +294,9 @@ CREATE TABLE order_history (
     FOREIGN KEY (order_id) REFERENCES cust_order(order_id) -- Foreign key to order
 );
 
--- Inserting fictional data into order_history
-INSERT INTO order_history (order_id, status_date, status_description) VALUES
+-- Insert sample data into order_history
+INSERT INTO order_history (order_id, status_date, status_description) 
+VALUES
 -- Order 1
 (1, '2024-06-01', 'Order placed'),
 (1, '2024-06-02', 'Payment confirmed'),
@@ -319,7 +318,6 @@ INSERT INTO order_history (order_id, status_date, status_description) VALUES
 (5, '2024-06-08', 'Order placed'),
 (5, '2024-06-09', 'Payment confirmed'),
 (5, '2024-06-10', 'Shipped'),
-
 -- Order 6
 (6, '2024-06-10', 'Order placed'),
 (6, '2024-06-11', 'Payment confirmed'),
@@ -349,18 +347,29 @@ CREATE TABLE payment (
     FOREIGN KEY (order_id) REFERENCES cust_order(order_id)
 );
 
--- Inserting fictional data into payment table
-INSERT INTO payment (order_id, payment_date, payment_method, payment_amount, payment_status) VALUES
-(1, '2024-06-02', 'Credit Card', 700.40, 'completed'),
-(2, '2024-06-04', 'PayPal', 299.00, 'completed'),
-(3, '2024-06-06', 'EFT', 400.00, 'failed'),
-(4, '2024-06-07', 'Credit Card', 380.00, 'completed'),
-(5, '2024-06-09', 'Debit Card', 360.00, 'completed'),
-(6, '2024-06-11', 'PayPal', 280.00, 'completed'),
-(7, '2024-06-12', 'Credit Card', 450.00, 'pending'),
-(8, '2024-06-14', 'Bank Transfer', 315.60, 'completed'),
-(9, '2024-06-15', 'EFT', 365.20, 'completed'),
-(10, '2024-06-17', 'PayPal', 375.80, 'completed');
+-- Insert sample data into payment table
+INSERT INTO payment (order_id, payment_date, payment_method, payment_amount, payment_status)
+VALUES
+    (1, '2025-04-01', 'Credit Card', 199.99, 'completed'),
+    (2, '2025-04-02', 'PayPal', 299.99, 'completed'),
+    (3, '2025-04-03', 'Credit Card', 150.50, 'completed'),
+    (4, '2025-04-04', 'Credit Card', 450.00, 'pending'),
+    (5, '2025-04-05', 'PayPal', 120.75, 'completed'),
+    (6, '2025-04-06', 'Credit Card', 299.99, 'pending'),
+    (7, '2025-04-07', 'PayPal', 399.50, 'completed'),
+    (8, '2025-04-08', 'Credit Card', 249.99, 'completed'),
+    (9, '2025-04-09', 'PayPal', 200.00, 'pending'),
+    (10, '2025-04-10', 'Credit Card', 180.99, 'completed'),
+    (11, '2025-04-11', 'PayPal', 159.50, 'completed'),
+    (12, '2025-04-12', 'Credit Card', 320.00, 'pending'),
+    (13, '2025-04-13', 'PayPal', 225.75, 'completed'),
+    (14, '2025-04-14', 'Credit Card', 400.50, 'completed'),
+    (15, '2025-04-15', 'PayPal', 190.00, 'pending'),
+    (16, '2025-04-16', 'Credit Card', 380.00, 'completed'),
+    (17, '2025-04-17', 'PayPal', 205.50, 'completed'),
+    (18, '2025-04-18', 'Credit Card', 290.00, 'pending'),
+    (19, '2025-04-19', 'PayPal', 300.00, 'completed'),
+    (20, '2025-04-20', 'Credit Card', 250.75, 'completed');
 
 
 
