@@ -62,53 +62,27 @@ INSERT INTO country (country_name)
 VALUES
 	("South Africa"), ("Lesotho"), ("Zambia"), ("Namibia"), ("Mozambique"), ("Botswana"), ("Zimbabwe"), ("Kenya"), ("Nigeria"),
     ("Tanzania"), ("Ethiopia"), ("Morocco"), ("Côte d'Ivoire"), ("Guinea"), ("Ghana"), ("Togo"), ("Senegal"), ("Burkina Faso");
-
--- Create the 'address_status' table:
-CREATE TABLE address_status (
-    address_status_id INT AUTO_INCREMENT PRIMARY KEY, -- Unique ID for each address status
-    status_name VARCHAR(100) NOT NULL                 -- Name of the status (e.g., current, old)
-);
-
--- Create the 'customer_address' table:
-CREATE TABLE customer_address (
-    address_id INT AUTO_INCREMENT PRIMARY KEY,    -- Unique ID for each address
-    customer_id INT,                              -- Reference to the customer
-    address_line1 VARCHAR(255) NOT NULL,          -- Address line 1 (It cannot be blank)
-    address_line2 VARCHAR(255),                   -- Address line 2 (optional)
-    province VARCHAR(100),                        -- Province
-    city VARCHAR(100),                            -- City
-    post_code VARCHAR(20),                        -- Postal code
-    country_id INT,                               -- Reference to country
-    address_status_id INT,                        -- Reference to address status
-    FOREIGN KEY (customer_id) REFERENCES customer(customer_id), -- Foreign key to customer
-    FOREIGN KEY (country_id) REFERENCES country(country_id), -- Foreign key to country
-    FOREIGN KEY (address_status_id) REFERENCES address_status(address_status_id) -- Foreign key to address status
-);
-
--- Create the 'address' table (To store all addresses in the system):
+    
+-- Create the 'address' table (To store all unique addresses in the system):
 CREATE TABLE address (
     address_id INT AUTO_INCREMENT PRIMARY KEY,   -- Unique ID for each address
-    customer_id INT,                             -- Reference to customer
     address_line1 VARCHAR(255) NOT NULL,         -- Address line 1
     address_line2 VARCHAR(255),                  -- Address line 2 (optional)
     province VARCHAR(100),                       -- Province
     city VARCHAR(100),                           -- City
     post_code VARCHAR(20),                       -- Postal code
     country_id INT,                              -- Reference to country
-    FOREIGN KEY (customer_id) REFERENCES customer(customer_id), -- Foreign key to customer
     FOREIGN KEY (country_id) REFERENCES country(country_id)  -- Foreign key to country
 );
 
--- Create the 'shipping_method' table
-CREATE TABLE shipping_method (
-    shipping_method_id INT AUTO_INCREMENT PRIMARY KEY, -- Unique ID for each shipping method
-    method_name VARCHAR(100) NOT NULL                   -- Name of the shipping method (e.g., standard, expedited)
-);
-
--- Create the 'order_status' table:
-CREATE TABLE order_status (
-    order_status_id INT AUTO_INCREMENT PRIMARY KEY, -- Unique ID for each order status
-    status_name VARCHAR(100) NOT NULL               -- Name of the order status (e.g., pending, shipped)
+-- Create the 'customer_address' table:
+CREATE TABLE customer_address (
+    address_id INT AUTO_INCREMENT,    -- Unique ID for each address
+    customer_id INT,                              -- Reference to the customer
+    address_status ENUM("Current", "Old") NOT NULL,  -- Indicates if the address is current or old
+    PRIMARY KEY (customer_id, address_id), -- Composite primary key
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id), -- Foreign key to customer
+    FOREIGN KEY (address_id) REFERENCES address(address_id)     -- Foreign key to address
 );
 
 -- Create the 'cust_order' table:
@@ -116,11 +90,11 @@ CREATE TABLE cust_order (
     order_id INT AUTO_INCREMENT PRIMARY KEY,    -- Unique order ID
     customer_id INT,                            -- Reference to the customer
     order_date DATE NOT NULL,                   -- Order date
-    shipping_method_id INT,                     -- Reference to shipping method
-    order_status_id INT,                        -- Reference to order status
-    FOREIGN KEY (customer_id) REFERENCES customer(customer_id), -- Foreign key to customer
-    FOREIGN KEY (shipping_method_id) REFERENCES shipping_method(shipping_method_id), -- Foreign key to shipping method
-    FOREIGN KEY (order_status_id) REFERENCES order_status(order_status_id)  -- Foreign key to order status
+    shipping_method VARCHAR(100) NOT NULL,       -- Shipping method (e.g., standard, express)
+	order_status VARCHAR(100) NOT NULL,          -- Order status (e.g., pending, shipped)
+    total_amount DECIMAL(10, 2) NOT NULL,		-- order total amount
+    payment_status VARCHAR(50) NOT NULL DEFAULT 'pending', -- Payment status (pending, paid, etc.)
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id) -- Foreign key to customer
 );
 
 -- Create the 'order_line' table:
@@ -138,8 +112,19 @@ CREATE TABLE order_history (
     order_history_id INT AUTO_INCREMENT PRIMARY KEY, -- Unique ID for each order history record
     order_id INT,                                   -- Reference to the order
     status_date DATE NOT NULL,                       -- Date of the status update
-    status_description VARCHAR(255) NOT NULL,        -- Description of the status (e.g., shipped, delivered)
+    status_description VARCHAR(255) NOT NULL,        -- Description of the status (e.g., Order placed, Payment confirmed, Shipped via CourierX, Delivered to customer on xxx)
     FOREIGN KEY (order_id) REFERENCES cust_order(order_id) -- Foreign key to order
+);
+
+-- create a 'payment' table to track payment details
+CREATE TABLE payment (
+    payment_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,                                 -- Reference to the order
+    payment_date DATE NOT NULL,                   -- Date of the payment
+    payment_method VARCHAR(50) NOT NULL,          -- Method of payment (e.g., Credit Card, PayPal, etc.)
+    payment_amount DECIMAL(10, 2) NOT NULL,       -- Payment amount
+    payment_status VARCHAR(50) NOT NULL DEFAULT 'completed', -- Payment status
+    FOREIGN KEY (order_id) REFERENCES cust_order(order_id)
 );
 
 
