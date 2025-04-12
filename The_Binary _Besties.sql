@@ -124,51 +124,20 @@ CREATE TABLE customer_address (
     FOREIGN KEY (address_status_id) REFERENCES address_status(address_status_id) -- Foreign key to address status
 );
 
--- Create the 'address' table (To store all addresses in the system):
-CREATE TABLE address (
-    address_id INT AUTO_INCREMENT PRIMARY KEY,     -- Unique ID for each address
-    customer_id INT,                                -- Reference to customer
-    address_line1 VARCHAR(255) NOT NULL,             -- Address line 1
-    address_line2 VARCHAR(255),                      -- Address line 2 (optional)
-    province VARCHAR(100),                           -- Province
-    city VARCHAR(100),                               -- City
-    post_code VARCHAR(20),                           -- Postal code
-    country_id INT,                                  -- Reference to country
-    FOREIGN KEY (customer_id) REFERENCES customer(customer_id), -- Foreign key to customer
-    FOREIGN KEY (country_id) REFERENCES country(country_id)     -- Foreign key to country
-);
-
--- Create the 'shipping_method' table
--- Make sure you're using the correct database
-USE bookstore;
-
--- Step 1: Create the shipping_method table
 CREATE TABLE shipping_method (
     shipping_method_id INT PRIMARY KEY,
     method_name VARCHAR(50) NOT NULL
 );
 
--- Step 2: Insert sample data
 INSERT INTO shipping_method (shipping_method_id, method_name) VALUES
 (1, 'Standard Shipping'),
 (2, 'Express Shipping');
-
-
--- Create the 'order_status' table:
--- Select the correct database
-USE bookstore;
-
+    
 -- Create the order_status table
--- Use the correct database
-USE bookstore;
-
--- Step 1: Create the order_status table
 CREATE TABLE order_status (
     order_status_id INT PRIMARY KEY,
     status_name VARCHAR(50) NOT NULL
 );
-
--- Step 2: Insert values into the table
 INSERT INTO order_status (order_status_id, status_name) VALUES
 (1, 'pending'),
 (2, 'shipped'),
@@ -181,24 +150,6 @@ INSERT INTO order_status (order_status_id, status_name) VALUES
 (9, 'refund requested'),
 (10, 'refunded');
 
-
--- Insert data into order_status
-INSERT INTO order_status (order_status_id, status_name) VALUES
-(1, 'pending'),
-(2, 'shipped'),
-(3, 'delivered'),
-(4, 'cancelled'),
-(5, 'returned'),
-(6, 'processing'),
-(7, 'out for delivery'),
-(8, 'payment pending'),
-(9, 'refund requested'),
-(10, 'refunded');
-
-
--- Create the 'cust_order' table:
--- Use the bookstore database
-USE bookstore;
 
 -- Create the customer_orders table
 CREATE TABLE customer_orders (
@@ -218,8 +169,6 @@ VALUES (1, 1, '2025-04-11', 1, 1);
 
 
 -- Create the 'order_line' table:
-USE bookstore;
-
 CREATE TABLE order_line (
     order_line_id INT PRIMARY KEY,
     order_id INT,
@@ -273,13 +222,7 @@ REFERENCES customer_orders(order_id);
 -- FOREIGN KEY (book_id)
 -- REFERENCES books(book_id);
 
-USE bookstore;
-
-RENAME TABLE customer_order_line TO order_list;
-
 -- Create the 'order_history' table:
-USE bookstore;
-
 CREATE TABLE order_history (
     order_history_id INT PRIMARY KEY,
     order_id INT,
