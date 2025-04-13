@@ -13,10 +13,10 @@ CREATE TABLE publisher (
 -- Insert data into publisher table 
 INSERT INTO publisher (publisher_name) VALUES
 ('Penguin Random House'),
-(2, 'Jacana Media'),
-(3, 'Kwela Books'),
-(4, 'Oxford University Press'),
-(5, 'NB Publishers');
+('Jacana Media'),
+('Kwela Books'),
+('Oxford University Press'),
+('NB Publishers');
 
 -- Create the 'book_language' table:
 CREATE TABLE book_language (
@@ -207,7 +207,7 @@ CREATE TABLE customer_address (
 );
 
 -- Insert sample data into the 'customer_address' table
-INSERT INTO customer_address (address_id, customer_id, address_status) 
+INSERT INTO customer_address (customer_id, address_status) 
 VALUES
 (1, 'Current'),
 (1, 'Old'),
