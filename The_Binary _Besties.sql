@@ -373,44 +373,52 @@ VALUES
 -- MANAGING ACCESS:
 -- 1. Create roles
 CREATE ROLE 'admin_role';
-CREATE ROLE 'manager_role';
-CREATE ROLE 'cashier_role';
+CREATE ROLE 'sales_role';
 CREATE ROLE 'inventory_role';
 CREATE ROLE 'support_role';
+CREATE ROLE 'reporting_role';
 
 -- 2. Grant privileges to roles
 -- Admin has full access
-GRANT ALL PRIVILEGES ON bookstore_db.* TO 'admin_role';
+GRANT ALL PRIVILEGES ON bookstore.* TO 'admin_role';
 
--- Manager: full access to books, orders, customers
-GRANT SELECT, INSERT, UPDATE, DELETE ON bookstore_db.books TO 'manager_role';
-GRANT SELECT, INSERT, UPDATE, DELETE ON bookstore_db.orders TO 'manager_role';
-GRANT SELECT, INSERT, UPDATE, DELETE ON bookstore_db.customers TO 'manager_role';
+-- sales role: full access to orders & payments
+GRANT SELECT, INSERT, UPDATE ON bookstore.cust_order TO 'sales_role';
+GRANT SELECT, INSERT, UPDATE ON bookstore.order_line TO 'sales_role';
+GRANT SELECT, INSERT, UPDATE ON bookstore.order_history TO 'sales_role';
+GRANT SELECT, INSERT, UPDATE ON bookstore.payment TO 'sales_role';
+GRANT SELECT, INSERT, UPDATE ON bookstore.customer TO 'sales_role';
+GRANT SELECT, INSERT, UPDATE ON bookstore.customer_address TO 'sales_role';
 
--- Cashier: can read books/customers and insert orders
-GRANT SELECT ON bookstore_db.books TO 'cashier_role';
-GRANT SELECT ON bookstore_db.customers TO 'cashier_role';
-GRANT SELECT, INSERT ON bookstore_db.orders TO 'cashier_role';
+-- Inventory Role: Manage books & authors
+GRANT SELECT, INSERT, UPDATE, DELETE ON bookstore.book TO 'inventory_role';
+GRANT SELECT, INSERT, UPDATE, DELETE ON bookstore.author TO 'inventory_role';
+GRANT SELECT, INSERT, UPDATE, DELETE ON bookstore.book_author TO 'inventory_role';
+GRANT SELECT, INSERT, UPDATE, DELETE ON bookstore.publisher TO 'inventory_role';
+GRANT SELECT, INSERT, UPDATE, DELETE ON bookstore.book_language TO 'inventory_role';
 
--- Inventory Clerk: read and update books only
-GRANT SELECT, INSERT, UPDATE ON bookstore_db.books TO 'inventory_role';
+-- Support Role: Read-Only Support Access
+GRANT SELECT ON bookstore.customer TO 'support_role';
+GRANT SELECT ON bookstore.cust_order TO 'support_role';
+GRANT SELECT ON bookstore.order_history TO 'support_role';
+GRANT SELECT ON bookstore.customer_address TO 'support_role';
+GRANT SELECT ON bookstore.address TO 'support_role';
+GRANT SELECT ON bookstore.country TO 'support_role';
 
--- Customer Support: view-only access to customers and orders
-GRANT SELECT ON bookstore_db.customers TO 'support_role';
-GRANT SELECT ON bookstore_db.orders TO 'support_role';
+-- Reporting Role: Read-Only on All Tables
+GRANT SELECT ON bookstore.* TO 'reporting_role';
 
 -- 3. Create users
 CREATE USER 'agnes'@'localhost' IDENTIFIED BY 'Admin1234';
-CREATE USER 'niniwe'@'localhost' IDENTIFIED BY 'Manager1234';
-CREATE USER 'cindy'@'localhost' IDENTIFIED BY 'Cashier1234';
-CREATE USER 'thabiso'@'localhost' IDENTIFIED BY 'Inventory1234';
-CREATE USER 'elena'@'localhost' IDENTIFIED BY 'Support1234';
+CREATE USER 'niniwe'@'localhost' IDENTIFIED BY 'Sales1234';
+CREATE USER 'cindy'@'localhost' IDENTIFIED BY 'Inventory1234';
+CREATE USER 'thabiso'@'localhost' IDENTIFIED BY 'Support1234';
+CREATE USER 'elena'@'localhost' IDENTIFIED BY 'Reports1234';
 
 -- 4. Assign roles to users
 GRANT 'admin_role' TO 'agnes'@'localhost';
-GRANT 'manager_role' TO 'niniwe'@'localhost';
-GRANT 'cashier_role' TO 'cindy'@'localhost';
-GRANT 'inventory_role' TO 'thabiso'@'localhost';
-GRANT 'support_role' TO 'elena'@'localhost';
-
+GRANT 'sales_role' TO 'niniwe'@'localhost';
+GRANT 'inventory_role' TO 'cindy'@'localhost';
+GRANT 'support_role' TO 'thabiso'@'localhost';
+GRANT 'reporting_role' TO 'elena'@'localhost';
 
