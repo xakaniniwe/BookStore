@@ -422,3 +422,84 @@ GRANT 'inventory_role' TO 'cindy'@'localhost';
 GRANT 'support_role' TO 'thabiso'@'localhost';
 GRANT 'reporting_role' TO 'elena'@'localhost';
 
+-- Testing the database by running queries to retrieve and analyze the data
+-- List All Books with Publisher and Language
+SELECT 
+    b.book_id,
+    b.title,
+    p.publisher_name,
+    l.language_name,
+    b.price,
+    b.publication_date
+FROM book b
+JOIN publisher p ON b.publisher_id = p.publisher_id
+JOIN book_language l ON b.language_id = l.language_id;
+
+-- List All Books with Their Authors
+SELECT 
+    b.title,
+    a.author_name
+FROM book b
+JOIN book_author ba ON b.book_id = ba.book_id
+JOIN author a ON ba.author_id = a.author_id;
+
+-- Most Expensive Books
+SELECT title, price 
+FROM book 
+ORDER BY price DESC 
+LIMIT 5;
+
+-- Books Published After 2010
+SELECT title, publication_date 
+FROM book 
+WHERE publication_date > '2010-01-01';
+
+-- Number of Books per Publisher
+SELECT p.publisher_name, COUNT(*) AS total_books
+FROM book b
+JOIN publisher p ON b.publisher_id = p.publisher_id
+GROUP BY p.publisher_name
+ORDER BY total_books DESC;
+
+-- Customer Locations (with Country)
+SELECT 
+    c.full_name,
+    c.email,
+    a.city,
+    a.province,
+    cn.country_name
+FROM customer c
+JOIN address a ON c.customer_id = a.address_id
+JOIN country cn ON a.country_id = cn.country_id;
+
+-- Authors with the Most Books
+SELECT 
+    a.author_name,
+    COUNT(ba.book_id) AS books_written
+FROM author a
+JOIN book_author ba ON a.author_id = ba.author_id
+GROUP BY a.author_name
+ORDER BY books_written DESC;
+
+-- Books in a Specific Language (e.g., isiZulu)
+SELECT 
+    b.title,
+    l.language_name
+FROM book b
+JOIN book_language l ON b.language_id = l.language_id
+WHERE l.language_name = 'isiZulu';
+
+-- Search Books by Title Keyword (e.g., "People")
+SELECT title 
+FROM book 
+WHERE title LIKE '%People%';
+
+-- Count of Books by Language
+SELECT 
+    l.language_name,
+    COUNT(*) AS total_books
+FROM book b
+JOIN book_language l ON b.language_id = l.language_id
+GROUP BY l.language_name
+ORDER BY total_books DESC;
+
