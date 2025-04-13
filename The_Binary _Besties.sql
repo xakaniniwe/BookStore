@@ -96,7 +96,7 @@ VALUES
     ("South Africa"), ("Lesotho"), ("Zambia"), ("Namibia"), ("Mozambique"), ("Botswana"), ("Zimbabwe"), ("Kenya"), ("Nigeria"),
     ("Tanzania"), ("Ethiopia"), ("Morocco"), ("Côte d'Ivoire"), ("Guinea"), ("Ghana"), ("Togo"), ("Senegal"), ("Burkina Faso");
 
--- Create the 'address_status' table:
+
 CREATE TABLE address_status (
     address_status_id INT PRIMARY KEY,
     status_name VARCHAR(50) NOT NULL
@@ -108,7 +108,6 @@ VALUES
 (1, 'current'),
 (2, 'old');
 
--- Create the 'customer_address' table:
 CREATE TABLE customer_address (
     address_id INT AUTO_INCREMENT PRIMARY KEY,     -- Unique ID for each address
     customer_id INT,                                -- Reference to the customer
@@ -154,14 +153,6 @@ INSERT INTO shipping_method (shipping_method_id, method_name) VALUES
 (2, 'Express Shipping');
 
 
--- Create the 'order_status' table:
--- Select the correct database
-USE bookstore;
-
--- Create the order_status table
--- Use the correct database
-USE bookstore;
-
 -- Step 1: Create the order_status table
 CREATE TABLE order_status (
     order_status_id INT PRIMARY KEY,
@@ -181,25 +172,6 @@ INSERT INTO order_status (order_status_id, status_name) VALUES
 (9, 'refund requested'),
 (10, 'refunded');
 
-
--- Insert data into order_status
-INSERT INTO order_status (order_status_id, status_name) VALUES
-(1, 'pending'),
-(2, 'shipped'),
-(3, 'delivered'),
-(4, 'cancelled'),
-(5, 'returned'),
-(6, 'processing'),
-(7, 'out for delivery'),
-(8, 'payment pending'),
-(9, 'refund requested'),
-(10, 'refunded');
-
-
--- Create the 'cust_order' table:
--- Use the bookstore database
-USE bookstore;
-
 -- Create the customer_orders table
 CREATE TABLE customer_orders (
     order_id INT PRIMARY KEY,
@@ -215,10 +187,6 @@ CREATE TABLE customer_orders (
 -- Insert sample data into customer_orders
 INSERT INTO customer_orders (order_id, customer_id, order_date, shipping_method_id, order_status_id)
 VALUES (1, 1, '2025-04-11', 1, 1);
-
-
--- Create the 'order_line' table:
-USE bookstore;
 
 CREATE TABLE order_line (
     order_line_id INT PRIMARY KEY,
@@ -260,25 +228,6 @@ INSERT INTO customer_order_line (order_line_id, order_id, book_id, quantity) VAL
 (29, 28, 9, 1),
 (30, 29, 10, 1),
 (31, 30, 11, 1);
-
--- Consider adding a foreign key constraint to link to the customer_orders table
-ALTER TABLE customer_order_line
-ADD CONSTRAINT fk_order
-FOREIGN KEY (order_id)
-REFERENCES customer_orders(order_id);
-
--- Consider adding a foreign key constraint to link to a books table (assuming you have one)
--- ALTER TABLE customer_order_line
--- ADD CONSTRAINT fk_book
--- FOREIGN KEY (book_id)
--- REFERENCES books(book_id);
-
-USE bookstore;
-
-RENAME TABLE customer_order_line TO order_list;
-
--- Create the 'order_history' table:
-USE bookstore;
 
 CREATE TABLE order_history (
     order_history_id INT PRIMARY KEY,
@@ -325,11 +274,6 @@ INSERT INTO order_history (order_history_id, order_id, status_date, status_descr
 (35, 29, '2025-04-02', 'delivered'),
 (36, 30, '2025-04-01', 'pending');
 
--- Consider adding a foreign key constraint to link to the orders table
-ALTER TABLE order_history
-ADD CONSTRAINT fk_order_history_order
-FOREIGN KEY (order_id)
-REFERENCES customer_orders(order_id);
 
 
 
