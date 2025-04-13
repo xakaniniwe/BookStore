@@ -11,8 +11,8 @@ CREATE TABLE publisher (
 );
 
 -- Insert data into publisher table 
-INSERT INTO publisher (publisher_id, publisher_name) VALUES
-(1, 'Penguin Random House'),
+INSERT INTO publisher (publisher_name) VALUES
+('Penguin Random House'),
 (2, 'Jacana Media'),
 (3, 'Kwela Books'),
 (4, 'Oxford University Press'),
@@ -25,12 +25,12 @@ CREATE TABLE book_language (
 );
 
 -- insert sample data into the book_Language table
-INSERT INTO book_language (language_id, language_name) VALUES
-(1, 'English'),
-(2, 'isiZulu'),
-(3, 'Shwahili'),
-(4, 'Afrikaans'),
-(5, 'Shona');
+INSERT INTO book_language (language_name) VALUES
+('English'),
+('isiZulu'),
+('Shwahili'),
+('Afrikaans'),
+('Shona');
 
 -- Create the 'book' table (A list of all books available in the store):
 CREATE TABLE book (
@@ -197,7 +197,6 @@ VALUES
 ('1819 Yaounde Avenue', NULL, 'Centre', 'Yaounde', '1122', 7),
 ('789 Apartment, Unit 3B', NULL, 'Gauteng', 'Pretoria', '1200', 1);
 
--- Create the 'customer_address' table:
 CREATE TABLE customer_address (
     address_id INT AUTO_INCREMENT,    -- Unique ID for each address
     customer_id INT,                              -- Reference to the customer
@@ -210,28 +209,28 @@ CREATE TABLE customer_address (
 -- Insert sample data into the 'customer_address' table
 INSERT INTO customer_address (address_id, customer_id, address_status) 
 VALUES
-(1, 1, 'Current'),
-(2, 1, 'Old'),
-(3, 2, 'Current'),
-(4, 3, 'Current'),
-(5, 4, 'Current'),
-(6, 5, 'Current'),
-(7, 6, 'Current'),
-(8, 7, 'Current'),
-(9, 8, 'Current'),
-(10, 9, 'Current'),
-(11, 10, 'Current'),
-(12, 11, 'Current'),
-(13, 12, 'Current'),
-(14, 13, 'Current'),
-(15, 14, 'Current'),
-(16, 15, 'Current'),
-(17, 16, 'Current'),
-(18, 17, 'Current'),
-(19, 18, 'Current'),
-(20, 19, 'Current'),
-(21, 20, 'Current'),
-(22, 1, 'Old'); -- Another address for customer 1
+(1, 'Current'),
+(1, 'Old'),
+(2, 'Current'),
+(3, 'Current'),
+(4, 'Current'),
+(5, 'Current'),
+(6, 'Current'),
+(7, 'Current'),
+(8, 'Current'),
+(9, 'Current'),
+(10, 'Current'),
+(11, 'Current'),
+(12, 'Current'),
+(13, 'Current'),
+(14, 'Current'),
+(15, 'Current'),
+(16, 'Current'),
+(18, 'Current'),
+(18, 'Current'),
+(19, 'Current'),
+(20, 'Current'),
+(1, 'Old'); -- Another address for customer 1
 
 -- Create the 'cust_order' table:
 CREATE TABLE cust_order (
@@ -246,28 +245,28 @@ CREATE TABLE cust_order (
 );
 
 -- Insert sample data into the 'cust_order' table for the customers
-INSERT INTO cust_order (customer_id, order_date, shipping_method, order_status, total_amount, payment_status)
+INSERT INTO cust_order (order_date, shipping_method, order_status, total_amount, payment_status)
 VALUES
-    (1, '2025-04-01', 'Standard', 'pending', 199.99, 'pending'),   
-    (2, '2025-04-02', 'Express', 'shipped', 299.99, 'paid'),      
-    (3, '2025-04-03', 'Standard', 'delivered', 150.50, 'paid'),   
-    (4, '2025-04-04', 'Express', 'pending', 450.00, 'pending'),   
-    (5, '2025-04-05', 'Standard', 'shipped', 120.75, 'paid'),    
-    (6, '2025-04-06', 'Express', 'pending', 299.99, 'pending'),   
-    (7, '2025-04-07', 'Standard', 'delivered', 399.50, 'paid'), 
-    (8, '2025-04-08', 'Express', 'shipped', 249.99, 'paid'),    
-    (9, '2025-04-09', 'Standard', 'pending', 200.00, 'pending'),  
-    (10, '2025-04-10', 'Express', 'delivered', 180.99, 'paid'),  
-    (11, '2025-04-11', 'Standard', 'shipped', 159.50, 'paid'),   
-    (12, '2025-04-12', 'Express', 'pending', 320.00, 'pending'), 
-    (13, '2025-04-13', 'Standard', 'delivered', 225.75, 'paid'), 
-    (14, '2025-04-14', 'Express', 'shipped', 400.50, 'paid'), 
-    (15, '2025-04-15', 'Standard', 'pending', 190.00, 'pending'), 
-    (16, '2025-04-16', 'Express', 'shipped', 380.00, 'paid'), 
-    (17, '2025-04-17', 'Standard', 'delivered', 205.50, 'paid'),
-    (18, '2025-04-18', 'Express', 'pending', 290.00, 'pending'),
-    (19, '2025-04-19', 'Standard', 'shipped', 300.00, 'paid'), 
-    (20, '2025-04-20', 'Express', 'delivered', 250.75, 'paid');
+    ('2025-04-01', 'Standard', 'pending', 199.99, 'pending'),   
+    ('2025-04-02', 'Express', 'shipped', 299.99, 'paid'),      
+    ('2025-04-03', 'Standard', 'delivered', 150.50, 'paid'),   
+    ('2025-04-04', 'Express', 'pending', 450.00, 'pending'),   
+    ('2025-04-05', 'Standard', 'shipped', 120.75, 'paid'),    
+    ('2025-04-06', 'Express', 'pending', 299.99, 'pending'),   
+    ('2025-04-07', 'Standard', 'delivered', 399.50, 'paid'), 
+    ('2025-04-08', 'Express', 'shipped', 249.99, 'paid'),    
+    ('2025-04-09', 'Standard', 'pending', 200.00, 'pending'),  
+    ('2025-04-10', 'Express', 'delivered', 180.99, 'paid'),  
+    ('2025-04-11', 'Standard', 'shipped', 159.50, 'paid'),   
+    ('2025-04-12', 'Express', 'pending', 320.00, 'pending'), 
+    ('2025-04-13', 'Standard', 'delivered', 225.75, 'paid'), 
+    ('2025-04-14', 'Express', 'shipped', 400.50, 'paid'), 
+    ('2025-04-15', 'Standard', 'pending', 190.00, 'pending'), 
+    ('2025-04-16', 'Express', 'shipped', 380.00, 'paid'), 
+    ('2025-04-17', 'Standard', 'delivered', 205.50, 'paid'),
+    ('2025-04-18', 'Express', 'pending', 290.00, 'pending'),
+    ('2025-04-19', 'Standard', 'shipped', 300.00, 'paid'), 
+    ('2025-04-20', 'Express', 'delivered', 250.75, 'paid');
 
 -- Create the 'order_line' table:
 CREATE TABLE order_line (
@@ -295,46 +294,46 @@ CREATE TABLE order_history (
 );
 
 -- Insert sample data into order_history
-INSERT INTO order_history (order_id, status_date, status_description) 
+INSERT INTO order_history (status_date, status_description) 
 VALUES
 -- Order 1
-(1, '2024-06-01', 'Order placed'),
-(1, '2024-06-02', 'Payment confirmed'),
-(1, '2024-06-03', 'Shipped via CourierX'),
-(1, '2024-06-05', 'Delivered to customer'),
+('2024-06-01', 'Order placed'),
+('2024-06-02', 'Payment confirmed'),
+('2024-06-03', 'Shipped via CourierX'),
+('2024-06-05', 'Delivered to customer'),
 -- Order 2
-(2, '2024-06-03', 'Order placed'),
-(2, '2024-06-04', 'Payment confirmed'),
-(2, '2024-06-06', 'Shipped via CourierY'),
-(2, '2024-06-08', 'Delivered to customer'),
+('2024-06-03', 'Order placed'),
+('2024-06-04', 'Payment confirmed'),
+('2024-06-06', 'Shipped via CourierY'),
+('2024-06-08', 'Delivered to customer'),
 -- Order 3
-(3, '2024-06-05', 'Order placed'),
-(3, '2024-06-06', 'Payment failed'),
-(3, '2024-06-07', 'Customer notified'),
+('2024-06-05', 'Order placed'),
+('2024-06-06', 'Payment failed'),
+('2024-06-07', 'Customer notified'),
 -- Order 4
-(4, '2024-06-06', 'Order placed'),
-(4, '2024-06-07', 'Payment confirmed'),
+('2024-06-06', 'Order placed'),
+('2024-06-07', 'Payment confirmed'),
 -- Order 5
-(5, '2024-06-08', 'Order placed'),
-(5, '2024-06-09', 'Payment confirmed'),
-(5, '2024-06-10', 'Shipped'),
+('2024-06-08', 'Order placed'),
+('2024-06-09', 'Payment confirmed'),
+('2024-06-10', 'Shipped'),
 -- Order 6
-(6, '2024-06-10', 'Order placed'),
-(6, '2024-06-11', 'Payment confirmed'),
-(6, '2024-06-12', 'Delivered'),
+('2024-06-10', 'Order placed'),
+('2024-06-11', 'Payment confirmed'),
+('2024-06-12', 'Delivered'),
 -- Order 7
-(7, '2024-06-11', 'Order placed'),
-(7, '2024-06-12', 'Payment pending'),
+('2024-06-11', 'Order placed'),
+('2024-06-12', 'Payment pending'),
 -- Order 8
-(8, '2024-06-13', 'Order placed'),
-(8, '2024-06-14', 'Payment confirmed'),
+('2024-06-13', 'Order placed'),
+('2024-06-14', 'Payment confirmed'),
 -- Order 9
-(9, '2024-06-14', 'Order placed'),
-(9, '2024-06-15', 'Payment confirmed'),
+('2024-06-14', 'Order placed'),
+('2024-06-15', 'Payment confirmed'),
 -- Order 10
-(10, '2024-06-16', 'Order placed'),
-(10, '2024-06-17', 'Payment confirmed'),
-(10, '2024-06-18', 'Shipped via CourierZ');
+('2024-06-16', 'Order placed'),
+('2024-06-17', 'Payment confirmed'),
+('2024-06-18', 'Shipped via CourierZ');
 
 -- create a 'payment' table to track payment details
 CREATE TABLE payment (
@@ -348,32 +347,28 @@ CREATE TABLE payment (
 );
 
 -- Insert sample data into payment table
-INSERT INTO payment (order_id, payment_date, payment_method, payment_amount, payment_status)
+INSERT INTO payment (payment_date, payment_method, payment_amount, payment_status)
 VALUES
-    (1, '2025-04-01', 'Credit Card', 199.99, 'completed'),
-    (2, '2025-04-02', 'PayPal', 299.99, 'completed'),
-    (3, '2025-04-03', 'Credit Card', 150.50, 'completed'),
-    (4, '2025-04-04', 'Credit Card', 450.00, 'pending'),
-    (5, '2025-04-05', 'PayPal', 120.75, 'completed'),
-    (6, '2025-04-06', 'Credit Card', 299.99, 'pending'),
-    (7, '2025-04-07', 'PayPal', 399.50, 'completed'),
-    (8, '2025-04-08', 'Credit Card', 249.99, 'completed'),
-    (9, '2025-04-09', 'PayPal', 200.00, 'pending'),
-    (10, '2025-04-10', 'Credit Card', 180.99, 'completed'),
-    (11, '2025-04-11', 'PayPal', 159.50, 'completed'),
-    (12, '2025-04-12', 'Credit Card', 320.00, 'pending'),
-    (13, '2025-04-13', 'PayPal', 225.75, 'completed'),
-    (14, '2025-04-14', 'Credit Card', 400.50, 'completed'),
-    (15, '2025-04-15', 'PayPal', 190.00, 'pending'),
-    (16, '2025-04-16', 'Credit Card', 380.00, 'completed'),
-    (17, '2025-04-17', 'PayPal', 205.50, 'completed'),
-    (18, '2025-04-18', 'Credit Card', 290.00, 'pending'),
-    (19, '2025-04-19', 'PayPal', 300.00, 'completed'),
-    (20, '2025-04-20', 'Credit Card', 250.75, 'completed');
-
-
-
-
+    ('2025-04-01', 'Credit Card', 199.99, 'completed'),
+    ('2025-04-02', 'PayPal', 299.99, 'completed'),
+    ('2025-04-03', 'Credit Card', 150.50, 'completed'),
+    ('2025-04-04', 'Credit Card', 450.00, 'pending'),
+    ('2025-04-05', 'PayPal', 120.75, 'completed'),
+    ('2025-04-06', 'Credit Card', 299.99, 'pending'),
+    ('2025-04-07', 'PayPal', 399.50, 'completed'),
+    ('2025-04-08', 'Credit Card', 249.99, 'completed'),
+    ('2025-04-09', 'PayPal', 200.00, 'pending'),
+    ('2025-04-10', 'Credit Card', 180.99, 'completed'),
+    ('2025-04-11', 'PayPal', 159.50, 'completed'),
+    ('2025-04-12', 'Credit Card', 320.00, 'pending'),
+    ('2025-04-13', 'PayPal', 225.75, 'completed'),
+    ('2025-04-14', 'Credit Card', 400.50, 'completed'),
+    ('2025-04-15', 'PayPal', 190.00, 'pending'),
+    ('2025-04-16', 'Credit Card', 380.00, 'completed'),
+    ('2025-04-17', 'PayPal', 205.50, 'completed'),
+    ('2025-04-18', 'Credit Card', 290.00, 'pending'),
+    ('2025-04-19', 'PayPal', 300.00, 'completed'),
+    ('2025-04-20', 'Credit Card', 250.75, 'completed');
 
 
 
