@@ -370,6 +370,47 @@ VALUES
     ('2025-04-19', 'PayPal', 300.00, 'completed'),
     ('2025-04-20', 'Credit Card', 250.75, 'completed');
 
+-- MANAGING ACCESS:
+-- 1. Create roles
+CREATE ROLE 'admin_role';
+CREATE ROLE 'manager_role';
+CREATE ROLE 'cashier_role';
+CREATE ROLE 'inventory_role';
+CREATE ROLE 'support_role';
 
+-- 2. Grant privileges to roles
+-- Admin has full access
+GRANT ALL PRIVILEGES ON bookstore_db.* TO 'admin_role';
+
+-- Manager: full access to books, orders, customers
+GRANT SELECT, INSERT, UPDATE, DELETE ON bookstore_db.books TO 'manager_role';
+GRANT SELECT, INSERT, UPDATE, DELETE ON bookstore_db.orders TO 'manager_role';
+GRANT SELECT, INSERT, UPDATE, DELETE ON bookstore_db.customers TO 'manager_role';
+
+-- Cashier: can read books/customers and insert orders
+GRANT SELECT ON bookstore_db.books TO 'cashier_role';
+GRANT SELECT ON bookstore_db.customers TO 'cashier_role';
+GRANT SELECT, INSERT ON bookstore_db.orders TO 'cashier_role';
+
+-- Inventory Clerk: read and update books only
+GRANT SELECT, INSERT, UPDATE ON bookstore_db.books TO 'inventory_role';
+
+-- Customer Support: view-only access to customers and orders
+GRANT SELECT ON bookstore_db.customers TO 'support_role';
+GRANT SELECT ON bookstore_db.orders TO 'support_role';
+
+-- 3. Create users
+CREATE USER 'agnes'@'localhost' IDENTIFIED BY 'Admin1234';
+CREATE USER 'niniwe'@'localhost' IDENTIFIED BY 'Manager1234';
+CREATE USER 'cindy'@'localhost' IDENTIFIED BY 'Cashier1234';
+CREATE USER 'thabiso'@'localhost' IDENTIFIED BY 'Inventory1234';
+CREATE USER 'elena'@'localhost' IDENTIFIED BY 'Support1234';
+
+-- 4. Assign roles to users
+GRANT 'admin_role' TO 'agnes'@'localhost';
+GRANT 'manager_role' TO 'niniwe'@'localhost';
+GRANT 'cashier_role' TO 'cindy'@'localhost';
+GRANT 'inventory_role' TO 'thabiso'@'localhost';
+GRANT 'support_role' TO 'elena'@'localhost';
 
 
